@@ -15,8 +15,8 @@ run "environment" {
     terraform_path = "src/terraform"
     packer_path    = "src/packer"
     commit_user = {
-      name  = var.github_username
-      email = var.github_email
+      name  = run.setup.github_name
+      email = run.setup.github_email
     }
     image_names = [
       "atat-image1",
