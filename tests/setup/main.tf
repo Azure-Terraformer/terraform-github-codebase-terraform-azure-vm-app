@@ -25,7 +25,3 @@ resource "github_branch_default" "default" {
   repository = github_repository.main.name
   branch     = github_branch.main.branch
 }
-
-data "github_user" "current" {
-  username = ""
-}
