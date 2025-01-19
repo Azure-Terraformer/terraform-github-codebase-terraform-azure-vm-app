@@ -14,6 +14,7 @@ run "environment" {
     branch         = "main"
     terraform_path = "src/terraform"
     packer_path    = "src/packer"
+    packer_version = "1.9.4"
     commit_user = {
       name  = var.github_username
       email = var.github_email

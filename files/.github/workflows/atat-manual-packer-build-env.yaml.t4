@@ -1,0 +1,78 @@
+name: Packer-Frontend-${image_name}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run against'
+        type: environment
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  PACKER_VERSION: '${packer_version}'
+  PACKER_WORKING_DIRECTORY: "${packer_working_directory}"
+
+jobs:
+
+  packer:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: $${{ github.event.inputs.environment }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+        client-id: $${{ vars.TERRAFORM_ARM_CLIENT_ID }}
+        tenant-id: $${{ vars.ARM_TENANT_ID }}
+        subscription-id: $${{ vars.ARM_SUBSCRIPTION_ID }}
+
+    - id: image-version
+      name: Generate Version Number
+      run: |
+        echo "version=$(date +'%Y.%m').$${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+    - id: agent-ipaddress
+      name: Check Path
+      working-directory: $${{ env.WORKING_DIRECTORY }}
+      run: |
+        ipaddress=$(curl -s http://checkip.amazonaws.com)
+        echo $ipaddress
+        echo "ipaddress=$ipaddress" >> "$GITHUB_OUTPUT"
+
+    - name: Copy Deployment Package
+      run: |
+        cp ./deployment.zip $${{ env.WORKING_DIRECTORY }}/deployment.zip
+
+    - name: Check Files
+      working-directory: $${{ env.WORKING_DIRECTORY }}
+      run: |
+        pwd
+        ls
+
+    - id: setup
+      name: Setup `packer`
+      uses: hashicorp/setup-packer@main
+      with:
+        version: $${{ env.PACKER_VERSION }}
+
+    - id: build
+      name: Packer Build
+      env:
+        PKR_VAR_arm_subscription_id: $${{ vars.ARM_SUBSCRIPTION_ID }}
+        PKR_VAR_arm_tenant_id: $${{ vars.ARM_TENANT_ID }}
+        PKR_VAR_arm_client_id: $${{ vars.PACKER_ARM_CLIENT_ID }}
+        PKR_VAR_arm_client_jwt: $${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+        PKR_VAR_image_version: $${{ steps.image-version.outputs.version }}
+        PKR_VAR_agent_ipaddress: $${{ steps.agent-ipaddress.outputs.ipaddress }}
+      working-directory: $${{ env.WORKING_DIRECTORY }}
+      run: |
+        packer init ./
+        packer build -var-file=variables.pkrvars.hcl ./

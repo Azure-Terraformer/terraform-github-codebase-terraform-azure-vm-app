@@ -66,3 +66,6 @@ variable "vm_size" {
 variable "resource_group_name" {
   type = string
 }
+variable "packer_version" {
+  type = string
+}
