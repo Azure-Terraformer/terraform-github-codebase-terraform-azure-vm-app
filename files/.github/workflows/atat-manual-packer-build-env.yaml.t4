@@ -59,10 +59,12 @@ jobs:
         PKR_VAR_arm_subscription_id: $${{ vars.ARM_SUBSCRIPTION_ID }}
         PKR_VAR_arm_tenant_id: $${{ vars.ARM_TENANT_ID }}
         PKR_VAR_arm_client_id: $${{ vars.TERRAFORM_ARM_CLIENT_ID }}
-        PKR_VAR_arm_client_jwt: $${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
         PKR_VAR_image_version: $${{ steps.image-version.outputs.version }}
         PKR_VAR_agent_ipaddress: $${{ steps.agent-ipaddress.outputs.ipaddress }}
       working-directory: $${{ env.PACKER_WORKING_DIRECTORY }}
       run: |
+      
+        export PKR_VAR_arm_client_jwt=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
+
         packer init ./
         packer build -var-file=variables.pkrvars.hcl ./
