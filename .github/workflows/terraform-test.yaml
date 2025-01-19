@@ -20,7 +20,7 @@ jobs:
 
       - name: Initialize Terraform
         env:
-          GITHUB_TOKEN: ${{ secrets.TERRAFORM_DOCS_PAT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TERRAFORM_TEST_PAT_TOKEN }}
           GITHUB_OWNER: ${{ secrets.TERRAFORM_TEST_GITHUB_OWNER }}
           TF_VAR_github_username: ${{ secrets.TERRAFORM_TEST_GITHUB_USERNAME }}
           TF_VAR_github_email: ${{ secrets.TERRAFORM_TEST_GITHUB_EMAIL }}
