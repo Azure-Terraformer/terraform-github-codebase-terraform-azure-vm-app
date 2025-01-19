@@ -25,4 +25,4 @@ jobs:
           TF_VAR_github_email: ${{ secrets.TERRAFORM_TEST_EMAIL }}
         run: |
           terraform init
-          terraform test -var-file="./tests/.debug-test.tfvars" -verbose
+          terraform test -verbose
