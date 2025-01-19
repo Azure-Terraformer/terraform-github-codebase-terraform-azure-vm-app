@@ -4,8 +4,7 @@ locals {
     "build.pkr.hcl",
     "locals.pkr.hcl",
     "plugins.pkr.hcl",
-    "variables.pkr.hcl",
-    "variables.pkrvars.hcl"
+    "variables.pkr.hcl"
   ]
   packer_files_foreach_image = {
     for entry in flatten([

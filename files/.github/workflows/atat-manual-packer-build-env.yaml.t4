@@ -1,4 +1,4 @@
-name: Packer-Frontend-${image_name}
+name: AT-AT-Manual-Packer-Build-${image_name}
 
 on:
   workflow_dispatch:
