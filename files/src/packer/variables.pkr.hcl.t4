@@ -1,0 +1,38 @@
+variable "arm_subscription_id" {
+  type    = string
+}
+variable "arm_tenant_id" {
+  type    = string
+}
+variable "arm_client_id" {
+  type    = string
+}
+variable "arm_client_jwt" {
+  sensitive = true
+  type      = string
+}
+variable "image_name" {
+  type = string
+}
+variable "image_version" {
+  type = string
+}
+variable "agent_ipaddress" {
+  type = string
+}
+variable "azure_primary_location" {
+  type = string
+}
+variable "vm_size" {
+  type = string
+}
+variable "resource_group_name" {
+  type = string
+}
+variable "marketplace_image" {
+  type = object({
+    offer     = string
+    publisher = string
+    sku       = string
+  })
+}

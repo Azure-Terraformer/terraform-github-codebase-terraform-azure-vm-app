@@ -1,0 +1,21 @@
+source "azure-arm" "vm" {
+
+  client_id       = var.arm_client_id
+  client_jwt      = var.arm_client_jwt
+  subscription_id = var.arm_subscription_id
+  tenant_id       = var.arm_tenant_id
+
+  image_offer     = var.marketplace_image.offer
+  image_publisher = var.marketplace_image.publisher
+  image_sku       = var.marketplace_image.sku
+
+  managed_image_name                = "${var.image_name}-${var.image_version}"
+  managed_image_resource_group_name = var.resource_group_name
+
+  location                     = var.azure_primary_location
+  communicator                 = "ssh"
+  os_type                      = "Linux"
+  vm_size                      = var.vm_size
+  allowed_inbound_ip_addresses = [var.agent_ipaddress]
+
+}
