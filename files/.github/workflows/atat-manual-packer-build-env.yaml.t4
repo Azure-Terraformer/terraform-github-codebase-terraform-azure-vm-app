@@ -67,8 +67,8 @@ jobs:
       working-directory: $${{ env.PACKER_WORKING_DIRECTORY }}
       run: |
       
-        export PKR_VAR_oidc_request_token=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
-        export PKR_VAR_oidc_request_url=$ACTIONS_ID_TOKEN_REQUEST_URL
+        export PKR_VAR_arm_oidc_request_token=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
+        export PKR_VAR_arm_oidc_request_url=$ACTIONS_ID_TOKEN_REQUEST_URL
 
         packer init ./
         packer build -var-file=variables.pkrvars.hcl ./
