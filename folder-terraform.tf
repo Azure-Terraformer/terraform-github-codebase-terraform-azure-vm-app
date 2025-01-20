@@ -2,6 +2,7 @@ locals {
   terraform_folder_files = [
     "compute-vm1-ssh.tf",
     "compute-vm1.tf",
+    "keyvault.tf",
     "network-bastion.tf",
     "network-subnets.tf",
     "network.tf",
