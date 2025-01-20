@@ -66,3 +66,6 @@ variable "vm_size" {
 variable "packer_version" {
   type = string
 }
+variable "base_address_space" {
+  type = string
+}

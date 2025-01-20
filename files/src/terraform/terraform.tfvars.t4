@@ -1,1 +1,2 @@
-location  = "${location}"
+location           = "${location}"
+base_address_space = "${base_address_space}

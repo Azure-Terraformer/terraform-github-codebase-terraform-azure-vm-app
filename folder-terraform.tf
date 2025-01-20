@@ -1,5 +1,10 @@
 locals {
   terraform_folder_files = [
+    "compute-vm1-ssh.tf",
+    "compute-vm1.tf",
+    "network-bastion.tf",
+    "network-subnets.tf",
+    "network.tf",
     "main.tf",
     "variables.tf",
     "versions.tf"
@@ -28,7 +33,8 @@ resource "github_repository_file" "terraform_tfvars" {
   file       = "${var.terraform_path}/terraform.tfvars"
   content = templatefile("${path.module}/files/src/terraform/terraform.tfvars.t4",
     {
-      location = var.primary_location
+      location           = var.primary_location
+      base_address_space = var.base_address_space
     }
   )
   commit_message      = "Managed by Terraform"
