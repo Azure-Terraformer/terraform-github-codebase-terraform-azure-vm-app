@@ -63,9 +63,6 @@ variable "image_names" {
 variable "vm_size" {
   type = string
 }
-variable "resource_group_name" {
-  type = string
-}
 variable "packer_version" {
   type = string
 }

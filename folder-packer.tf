@@ -42,10 +42,9 @@ resource "github_repository_file" "packer_pkrvars" {
   file       = "${var.packer_path}/${each.key}/variables.pkrvars.hcl"
   content = templatefile("${path.module}/files/src/packer/variables.pkrvars.hcl.t4",
     {
-      image_name          = each.key
-      primary_location    = var.primary_location
-      vm_size             = var.vm_size
-      resource_group_name = var.resource_group_name
+      image_name       = each.key
+      primary_location = var.primary_location
+      vm_size          = var.vm_size
     }
   )
   commit_message      = "Managed by Terraform"
